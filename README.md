@@ -1,2 +1,2 @@
 # web-calculator
-A simple Web-Calculator based on html ans JS
+A simple Web-Calculator based on html and JS
