@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<head>
+    <title>WebCalc</title>
+    <link rel="shortcut icon" href="ppp.png" />
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>
+                <div class="inputs">
+                    <input type="number" class="inputs" id="number1" placeholder="Enter your 1st Number..." />
+                    <input type="text" class="inputs" id="calcSign" placeholder="Enter your Calc Sign..." />
+                    <input type="number" class="inputs" id="number2" placeholder="Enter your 2nd Number..." />
+                    <input type="submit" class="inputs" id="button" value="Calc!" onclick="return onClick()" />
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Calc Sign can be +, -, * or /
+            </th>
+        </tr>
+    </table>
+    
+</body>
+
+<script type="text/javascript">
+
+    function onClick() {
+        var number1 = document.getElementById('number1').value;
+        var number2 = document.getElementById('number2').value;
+        var calcSign = document.getElementById('calcSign').value;
+        var result = "ERROR";
+
+        //if (calcSign !== "+" || calcSign !== "-" || calcSign !== "*" || calcSign !== "/") return alert("Your entered Calc Sign is invalid: " + calcSign);
+
+        if (calcSign !== "+") {
+            if (calcSign !== "-") {
+                if (calcSign !== "*") {
+                    if (calcSign !== "/") {
+                        return alert("Your entered Calc Sign is invalid: " + calcSign);
+                    };
+                };
+            };
+        };
+
+        if (!number1) return alert("Please enter a number in the first number Input!");
+        if (!number2) return alert("Please enter a number in the second number Input!");
+
+        switch (calcSign) {
+
+            case "+":
+                result = +number1 + +number2; 
+                break;
+
+            case "-":
+                result = number1 - number2;
+                break;
+
+            case "*":
+                result = number1 * number2;
+                break;
+
+            case "/":
+                result = number1 / number2;
+                break;
+        }
+
+        alert("Your result is: " + result);
+    };
+
+</script>
