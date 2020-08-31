@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<head>
+    <title>WebCalc</title>
+    <link rel="shortcut icon" href="logo.png" />
+</head>
+
+<body>
+
+    <img src="./flag.png" width="60" height="29" draggable="false" dropzone="German Version" onclick="window.location.href = '../de/index.html'" />
+    <br />
+
+    <h1>WebCalc - A project by Sachsenspielt - <a href="https://github.com/Sachsenspielt96/webcalc">Source Code</a></h1>
+
+    <table>
+        <tr>
+            <th>
+                <h2>Classic</h2>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <div class="inputs-simple">
+                    <input type="number" class="inputs-simple" id="number1" placeholder="Enter your 1st Number..." />
+                    <input type="text" class="inputs-simple" id="calcSign" placeholder="Enter your Calc Sign..." />
+                    <input type="number" class="inputs-simple" id="number2" placeholder="Enter your 2nd Number..." />
+                    <input type="submit" class="inputs-simple" id="button" value="Calc!" onclick="return onClickClassic()" />
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                Calc Sign can be +, -, * or /
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <div class="outputs-classic">
+                    <br />
+                    Result: <output class="outputs-classic" id="classic_out1" style="border: none; background-color: #e1e6e2">Result will be displayed here!</output>
+                </div>
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                <br />
+                <h2>Checksum</h2>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <div class="inputs-checksum">
+                    <input type="number" class="inputs-checksum" id="checksum" placeholder="Enter your Number..." />
+                    <input type="submit" class="inputs-checksum" id="button" value="Calc!" onclick="return onClickChecksum()" />
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <div class="outputs-checksum">
+                    <br />
+                    checksum: <output class="outputs-checksum" id="checksum_out1" style="border: none; background-color: #e1e6e2">Checksum will be displayed here!</output>
+                    <br />
+                    iterated checksum: <output class="outputs-checksum" id="checksum_out2" style="border: none; background-color: #e1e6e2">Iterated checksum will be displayed here!</output>
+                </div>
+            </th>
+        </tr>
+
+    </table>
+
+</body>
+
+<script type="text/javascript">
+
+    function onClickClassic() {
+        var number1 = document.getElementById('number1').value;
+        var number2 = document.getElementById('number2').value;
+        var calcSign = document.getElementById('calcSign').value;
+        var classic_out1 = document.getElementById('classic_out1');
+        var result = "ERROR";
+
+        //if (calcSign !== "+" || calcSign !== "-" || calcSign !== "*" || calcSign !== "/") return alert("Your entered Calc Sign is invalid: " + calcSign);
+
+        if (calcSign !== "+") {
+            if (calcSign !== "-") {
+                if (calcSign !== "*") {
+                    if (calcSign !== "/") {
+                        return classic_out1.value = "Your entered Calc Sign is invalid: " + calcSign;
+                    };
+                };
+            };
+        };
+
+        if (!number1) return classic_out1.value = "Please enter a number in the first number Input!";
+        if (!number2) return classic_out1.value = "Please enter a number in the second number Input!";
+
+        switch (calcSign) {
+
+            case "+":
+                result = +number1 + +number2; 
+                break;
+
+            case "-":
+                result = number1 - number2;
+                break;
+
+            case "*":
+                result = number1 * number2;
+                break;
+
+            case "/":
+                result = number1 / number2;
+                break;
+        }
+
+        classic_out1.value = result;
+    };
+
+    function onClickChecksum() {
+        var checksum = document.getElementById('checksum').value;
+        var checksum_out1 = document.getElementById('checksum_out1');
+        var checksum_out2 = document.getElementById('checksum_out2');
+        var zaehler = 0;
+
+        if (checksum < 0) {
+            checksum_out1.value = "ERROR: Can't make checksum of negative numbers";
+            checksum_out2.value = "ERROR: Can't make checksum of negative numbers";
+            return;
+        };
+
+        if (checksum == 0) {
+            checksum_out1.value = "ERROR: Can't make checksum of 0";
+            checksum_out2.value = "ERROR: Can't make checksum of 0";
+            return;
+        };
+
+        if (checksum > 0 && checksum < 10) {
+            checksum_out1.value = checksum;
+            checksum_out2.value = checksum;
+            return;
+        }
+
+        var checksumArr = checksum.split("");
+
+        for (i = 0; i < checksumArr.length; i++) {
+
+            zaehler = +zaehler + +parseInt(checksumArr[i]);
+        }
+
+        checksum_out1.value = zaehler;
+        zaehler = 0;
+
+        for (i = 0; checksumArr.length !== 1 && i < 100; i++) {
+            for (i2 = 0; i2 < checksumArr.length; i2++) {
+
+                zaehler = +zaehler + +parseInt(checksumArr[i2]);
+            }
+            zaehlerStr = zaehler.toString();
+            zaehler = 0;
+            checksumArr = zaehlerStr.split("");
+        }
+
+        checksum_out2.value = zaehlerStr;
+        return;
+
+    };
+
+</script>
